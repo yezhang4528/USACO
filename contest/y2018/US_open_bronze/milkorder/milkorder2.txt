@@ -1,0 +1,16 @@
+'''
+Create CowDict, key is position, starting from 1->N, value is cowNum, initialize to 0.
+Read and insert all special order cows into CowDict, if cowNum == 1, return position
+Reversly traverse the hierOrder cow List. Declare InsertIndex, initialize to last
+    1: If cow is in CowDict, update InsertIndex to position (Cows in hierOrder list should be in front of this cow)
+    2: If Cow is not in CowDict. Insert cow to the last empty spot before InsertIndex, update InsertIndex
+        * If cow is 1, mark cow1Position (Init to 0)
+    3. Repeat 2 until cow is in CowDict
+        * If cow1Position == 0, update InsertIndex
+        * If cow1Position != 0
+            * If insert position == CowDict, return cow1Position
+            * If insert position > CowDict position, return cow1Position - diff
+    4. Reach 1st cow in hierOrder List.
+        * If cow1Position == 0, return 1st empty spot position in CowDict
+        * If cow1Position != 0, return cow1Position - (InsertIndex - 1)
+'''

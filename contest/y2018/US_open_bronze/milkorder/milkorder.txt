@@ -1,0 +1,95 @@
+def getCurrentPosition(CowDict, cow):
+    for i in range(len(CowDict), 0, -1):
+        if CowDict[i] == cow:
+            return i
+    return 0
+
+def shiftCows(CowDict, CowDictMoveDone, position, cow1Position):
+    for i in range(position, len(CowDict) + 1):
+        temp = CowDict[i+1]
+        CowDict[i+1] = CowDict[i]
+        if CowDict[i+1] == 1:
+            cow1Position = i+1
+        CowDict[i] = temp
+        if CowDict[i] == 0:
+            break
+
+with open("milkorder.in", "r") as fin:
+    cowsNumLine = fin.readline()
+    hierLine = fin.readline()
+    specialOrderLines = fin.readlines()
+
+numOfCows, numOfHeirCows, numOfSpecialCows = map(int, cowsNumLine.split())
+
+CowDict = {}
+CowDictMoveDone = {}
+for i in range(1, numOfCows + 1):
+    CowDict[i] = 0
+    CowDictMoveDone[i] = False
+
+hierCows = list(map(int, hierLine.split()))
+
+cowIndex = 1
+hierIndex = 0
+while hierIndex < len(hierCows):
+    CowDict[cowIndex] = hierCows[hierIndex]
+    cowIndex += 1
+    hierIndex += 1
+
+cow1Position = 0
+biggestDoneMovePosition = 0
+for line in specialOrderLines:
+    cow, position = map(int, line.split())
+    curPosition = getCurrentPosition(CowDict, cow)
+    if curPosition == 0:
+        if CowDict[position] != 0:
+            shiftCows(CowDict, CowDictMoveDone, position, cow1Position)
+        CowDict[position] = cow
+        if CowDict[position] == 1:
+            cow1Position = position
+        CowDictMoveDone[position] = True
+        if position > biggestDoneMovePosition:
+            biggestDoneMovePosition = position
+    else:
+        posDiff = position - curPosition
+        if posDiff == 0:
+            CowDictMoveDone[position] = True
+            if position > biggestDoneMovePosition:
+                biggestDoneMovePosition = position
+            if CowDict[position] == 1:
+                cow1Position = position
+            continue
+        for i in range(numOfCows, curPosition-1, -1):
+            if CowDict[i] == cow:
+                CowDict[position] = cow
+                CowDict[i] = 0
+                CowDictMoveDone[position] = True
+                if CowDict[position] == 1:
+                    cow1Position = position
+                if position > biggestDoneMovePosition:
+                    biggestDoneMovePosition = position
+                break
+            else:
+                if CowDict[i] != 0 and CowDictMoveDone[i] == False:
+                    newPosition = i + posDiff
+                    CowDict[newPosition] = CowDict[i]
+                    if CowDict[newPosition] == 1:
+                        cow1Position = newPosition
+                    CowDict[i] = 0
+
+print(CowDict)
+print("cow1Position: %d" % cow1Position)
+earliest_position = 1
+if cow1Position != 0:
+    earliest_position = cow1Position
+else:
+    for i in range(1, numOfCows+1):
+        if CowDict[i] == 0:
+            earliest_position = i
+            break
+        if i == biggestDoneMovePosition:
+            earliest_position = i + 1
+            break
+
+with open("milkorder.out", "w") as fout:
+    fout.write(str(earliest_position))
