@@ -68,8 +68,12 @@ necklace = buildNeckLace(beadStr)
 # Find solution
 maxOut = 0
 curBead = necklace.head
+index = 0
 while True:
     curMax = collectBeads(curBead, 2)
+    index += 1
+    if (curMax == 4):
+        print(index)
     if curMax > maxOut:
         maxOut = curMax
     if curBead.next == necklace.head or maxOut == totalBeads:

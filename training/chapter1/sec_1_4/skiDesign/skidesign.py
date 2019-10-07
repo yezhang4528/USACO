@@ -1,4 +1,9 @@
 '''
+ID: yezhang2
+LANG: PYTHON3
+TASK: skidesign
+'''
+'''
 * Read in input data, sort.
 * Calculate diff between 2 points, starting point is sortList head, ending point is sortList tail
 * Then to second to sortList head, and second to sortlist tail, ..., and so on.
@@ -98,10 +103,10 @@ for i in range(0, len(changeList1)):
     sum2 += changeList2[i]
 
 scaleList = prepareScaleList(sum1//len(changeList1), highMark)
-print(scaleList)
+#print(scaleList)
 
 with open("skidesign.out", "w") as fout:
     if len(scaleList) == 0:
-        fout.write(str(0))
+        fout.write(str(0)+'\n')
     else:
-        fout.write(str(calculateFinalCost(scaleList, changeList1, changeList2)))
+        fout.write(str(calculateFinalCost(scaleList, changeList1, changeList2))+'\n')
