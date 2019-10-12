@@ -30,6 +30,8 @@ def pair_cords():
             break
     if i == listSize-1:               # All paired, find circle
         total += circle()
+        print(pairs)
+        print(total)
         return
 
     # Continue to pair
@@ -49,9 +51,11 @@ def find_neighbor():
         for j in range (i+1, listSize):
             if yCord[i] == yCord[j]:
                 if xCord[i] < xCord[j]:
-                    next_on_right[i] = j
+                    if next_on_right[i] == 0 or xCord[next_on_right[i]] - xCord[i] > xCord[j] - xCord[i]:
+                        next_on_right[i] = j
                 else:
-                    next_on_right[j] = i
+                    if next_on_right[j] == 0 or xCord[next_on_right[j]] - xCord[j] > xCord[i] - xCord[j]:
+                        next_on_right[j] = i
 
 for i, line in enumerate(lines):
     xCord[i+1], yCord[i+1] = map(int, line.split())
