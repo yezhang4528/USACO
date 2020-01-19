@@ -51,8 +51,8 @@ import sys
 def calculateStopTime(cowInOrder, lTimeList, rTimeList, stopWeight):
     lTimeList.sort()
     rTimeList.sort(reverse=True)
-    print(lTimeList)
-    print(rTimeList)
+    #print(lTimeList)
+    #print(rTimeList)
     wInBarn = 0
     lTimeLen = len(lTimeList)
     rTimeLen = len(rTimeList)
