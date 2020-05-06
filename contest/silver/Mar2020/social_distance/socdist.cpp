@@ -47,9 +47,9 @@ uint64_t findSocialDist(vector<pair<uint64_t, uint64_t>>& distV, int cows)
     uint64_t ret = 0;
     sort(distV.begin(), distV.end());
     int numPairs = distV.size();
-    uint64_t low = distV[0].first, high = distV[numPairs-1].second;
+    uint64_t low = 0, high = distV[numPairs-1].second;
 
-    while (low < high) {
+    while (low <= high) {
         uint64_t mid = low + (high - low)/2;
 
         if (validateSocialDist(distV, mid, cows)) {
