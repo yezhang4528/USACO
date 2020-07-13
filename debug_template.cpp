@@ -10,6 +10,8 @@
  */
 #include<iostream>
 #include<fstream>
+#include<vector>
+#include<algorithm>
 
 using namespace std;
 
@@ -18,27 +20,30 @@ using namespace std;
 #if DEBUG_ON
 #include<sstream>
 
-void printVec() {
-    for (auto p : ???)
-        cout << ...  << " " << ... << endl;
+void printVec(vector<routeInfo>& v) {
+    for (int i = 1; i <= MAX_CITY; i++)
+        if (v[i].cost != 0)
+            cout << i << ": " << v[i].cost  << " " << v[i].legs << endl;
 }
 #endif
 
-...
-
 int main(int argc, char *argv[])
 {
+    string inputFile = "";
 #if DEBUG_ON
-    if (argc <= 1) {
-        cout << argv[0] << " takes one integer argument" << endl;
-        return 0;
+    if (argc > 1) {
+        ostringstream os;
+        os << "./data/" << argv[1] << ".in";
+        ifstream fin(os.str());
+        inputFile = os.str();
     }
-    ostringstream os;
-    os << "./data/" << argv[1] << ".in";
-    ifstream fin(os.str());
-    
-#else
-    ifstream fin("???.in");
 #endif
+
+    if (inputFile.size() == 0)
+        inputFile = "xxx.in";
+
+    ifstream fin(inputFile);
+
+    ...
     return 0;
 }
